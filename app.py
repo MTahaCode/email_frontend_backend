@@ -22,7 +22,7 @@ def index():
     return jsonify({"message": "hello from vercel"})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
 
 # from flask import Flask, request, jsonify, render_template
 # import os
