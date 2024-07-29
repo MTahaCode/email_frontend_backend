@@ -123,5 +123,5 @@ public_url = ngrok.connect(port, hostname='ideal-wildly-cat.ngrok-free.app')
 print(f" * Ngrok tunnel \"{public_url}\" -> \"http://127.0.0.1:{port}\"")
 
 # Run Flask app
-if __name__ = '__main__':
+if __name__ == '__main__':
     app.run(host='0.0.0.0', port=port)
