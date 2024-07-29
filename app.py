@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, render_template
 import os
-from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 from flask_cors import CORS
 from pyngrok import ngrok
 from rake_nltk import Rake
