@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
-# from flask_cors import CORS
+from flask_cors import CORS
 import os
-import nltk
 import google.generativeai as genai
 
 # gemini api key to env
@@ -12,11 +11,8 @@ genai.configure(api_key=os.environ["GENERATIVE_AI_API_KEY"])
 UNSPLASH_ACCESS_KEY = "hnQZn2r_mww-jeUNtkRtIHk9m-Kf-YkghOKQCpWF6qk"
 UNSPLASH_API_URL = "https://api.unsplash.com/search/photos"
 
-nltk.download("punkt")
-nltk.download("stopwords")
-
 app = Flask(__name__)
-# CORS(app)
+CORS(app)
 
 @app.route("/")
 def index():
