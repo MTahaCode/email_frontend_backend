@@ -4,18 +4,19 @@ import os
 import nltk
 import google.generativeai as genai
 
-app = Flask(__name__)
-# CORS(app)
-
 # gemini api key to env
 os.environ["GENERATIVE_AI_API_KEY"] = "AIzaSyBBTYcBb6ZtsFPZEvNTQ7gVqTv7w5MyF_8"
 genai.configure(api_key=os.environ["GENERATIVE_AI_API_KEY"])
 
 # unsplash relted
-nltk.download("punkt")
-nltk.download("stopwords")
 UNSPLASH_ACCESS_KEY = "hnQZn2r_mww-jeUNtkRtIHk9m-Kf-YkghOKQCpWF6qk"
 UNSPLASH_API_URL = "https://api.unsplash.com/search/photos"
+
+nltk.download("punkt")
+nltk.download("stopwords")
+
+app = Flask(__name__)
+# CORS(app)
 
 @app.route("/")
 def index():
