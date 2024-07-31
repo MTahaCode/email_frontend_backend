@@ -1,12 +1,12 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
 import os
 import google.generativeai as genai
 from rake_nltk import Rake
 import random
 import requests
+import pymysql
 
 app = Flask(__name__)
 
@@ -22,7 +22,6 @@ app.secret_key = os.environ.get('SECRET_KEY', '12345678')
 
 # Initialize SQLAlchemy and Bcrypt
 db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
 
 # Define User Model
 class users(db.Model):
@@ -145,4 +144,4 @@ def query():
         return jsonify({'error': 'Failed to process Gemini response.'}), 500
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80)  # Ensure it listens on all IP addresses
+    app.run(host='0.0.0.0', port=80)
