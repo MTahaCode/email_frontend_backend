@@ -6,7 +6,6 @@ import google.generativeai as genai
 from rake_nltk import Rake
 import random
 import requests
-import pymysql
 
 app = Flask(__name__)
 
@@ -61,7 +60,7 @@ def login():
     # data = request.get_json()
     email = request.form.get('email')
     password = request.form.get('password')
-    print(email,password)
+    
     user = users.query.filter_by(email=email).first()
     if user and user.password == password:
         return jsonify({'message': 'Login successful!'}), 200
