@@ -152,5 +152,5 @@ def index():
 #         print(f"Error processing Gemini's response: {e}")
 #         return jsonify({'error': 'Failed to process Gemini response.'}), 500
 
-# if __name__ == "__main__":
-#     app.run()
+if __name__ == "__main__":
+    app.run()
