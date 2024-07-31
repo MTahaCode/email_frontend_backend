@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
 import os
 import google.generativeai as genai
 from rake_nltk import Rake
@@ -20,7 +19,6 @@ app.secret_key = os.environ.get('SECRET_KEY', '12345678')
 
 # Initialize SQLAlchemy and Bcrypt
 db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
 
 # Define User Model
 class users(db.Model):
