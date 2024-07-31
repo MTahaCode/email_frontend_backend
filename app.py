@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 import os
 import google.generativeai as genai
 from rake_nltk import Rake
@@ -8,7 +9,9 @@ import random
 import requests
 
 app = Flask(__name__)
-CORS(app)
+
+# Configure CORS
+CORS(app, resources={r"/*": {"origins": "*"}})  # Adjust origins as needed
 
 # SQLAlchemy configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://ateeb_admin:ishaq321!@emailtemplatebyateeb.mysql.database.azure.com/ateeb_db'
@@ -19,6 +22,7 @@ app.secret_key = os.environ.get('SECRET_KEY', '12345678')
 
 # Initialize SQLAlchemy and Bcrypt
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 # Define User Model
 class users(db.Model):
