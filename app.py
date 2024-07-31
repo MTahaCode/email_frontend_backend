@@ -9,40 +9,40 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
-load_dotenv()
+# load_dotenv()
 
-# gemini api key to env
-gemini_api_key = os.environ["GENERATIVE_AI_API_KEY"]
-genai.configure(api_key=gemini_api_key)
+# # gemini api key to env
+# gemini_api_key = os.environ["GENERATIVE_AI_API_KEY"]
+# genai.configure(api_key=gemini_api_key)
 
-# unsplash relted
-UNSPLASH_ACCESS_KEY = os.environ["UNSPLASH_ACCESS_KEY"]
-UNSPLASH_API_URL = os.environ["UNSPLASH_API_URL"]
+# # unsplash relted
+# UNSPLASH_ACCESS_KEY = os.environ["UNSPLASH_ACCESS_KEY"]
+# UNSPLASH_API_URL = os.environ["UNSPLASH_API_URL"]
 
 app = Flask(__name__)
 CORS(app)
 
 # SQLAlchemy configuration
-database_uri = os.environ["DATABASE_URI"]
-app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# database_uri = os.environ["DATABASE_URI"]
+# app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Secret Key for sessions and other purposes
-app.secret_key = os.environ["SECRET_KEY"]
+# # Secret Key for sessions and other purposes
+# app.secret_key = os.environ["SECRET_KEY"]
 
-# Initialize SQLAlchemy and Bcrypt
-db = SQLAlchemy(app)
+# # Initialize SQLAlchemy and Bcrypt
+# db = SQLAlchemy(app)
 
 # Define User Model
-class users(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), unique=True, nullable=False)
-    email = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(150), nullable=False)
+# class users(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(150), unique=True, nullable=False)
+#     email = db.Column(db.String(150), unique=True, nullable=False)
+#     password = db.Column(db.String(150), nullable=False)
 
-# Ensure the database tables are created
-with app.app_context():
-    db.create_all()
+# # Ensure the database tables are created
+# with app.app_context():
+#     db.create_all()
 
 @app.route("/")
 def index():
