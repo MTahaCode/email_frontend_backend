@@ -1,13 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import nltk
 import os
 import google.generativeai as genai
 from rake_nltk import Rake
 import random
 import requests
-
-nltk.data.path.append(os.path.join(os.path.dirname(__file__), 'nltk_data'))
+from flask_sqlalchemy import SQLAlchemy
 
 # gemini api key to env
 os.environ["GENERATIVE_AI_API_KEY"] = "AIzaSyBBTYcBb6ZtsFPZEvNTQ7gVqTv7w5MyF_8"
@@ -20,9 +18,60 @@ UNSPLASH_API_URL = "https://api.unsplash.com/search/photos"
 app = Flask(__name__)
 CORS(app)
 
+# SQLAlchemy configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://ateeb_admin:ishaq321!@emailtemplatebyateeb.mysql.database.azure.com/ateeb_db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Secret Key for sessions and other purposes
+app.secret_key = os.environ.get('SECRET_KEY', '12345678')
+
+# Initialize SQLAlchemy and Bcrypt
+db = SQLAlchemy(app)
+
+# Define User Model
+class users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+
+# Ensure the database tables are created
+with app.app_context():
+    db.create_all()
+
 @app.route("/")
 def index():
     return jsonify({"message": "hello from vercel"})
+
+@app.route('/register', methods=['POST'])
+def register():
+    # data = request.get_json()
+    username = request.form.get('username')
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    if not username or not email or not password:
+        return jsonify({'error': 'Missing fields'}), 400
+
+    # Directly use the password without hashing
+    new_user = users(username=username, email=email, password=password)
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({'message': 'User registered successfully!'}), 201
+
+@app.route('/login', methods=['POST'])
+def login():
+    # data = request.get_json()
+    email = request.form.get('email')
+    password = request.form.get('password')
+    print(email,password)
+    user = users.query.filter_by(email=email).first()
+    if user and user.password == password:
+        return jsonify({'message': 'Login successful!'}), 200
+    else:
+        return jsonify({'error': 'Invalid credentials'}), 401
 
 @app.route('/query', methods=['POST'])
 def query():
