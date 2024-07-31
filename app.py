@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
-# load_dotenv()
+load_dotenv()
 
 # # gemini api key to env
 # gemini_api_key = os.environ["GENERATIVE_AI_API_KEY"]
