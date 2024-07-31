@@ -1,23 +1,23 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import os
-import google.generativeai as genai
-from rake_nltk import Rake
-import random
-import requests
-from flask_sqlalchemy import SQLAlchemy
-from dotenv import load_dotenv
+# import os
+# import google.generativeai as genai
+# from rake_nltk import Rake
+# import random
+# import requests
+# from flask_sqlalchemy import SQLAlchemy
+# from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
+# # Load environment variables from .env file
+# load_dotenv()
 
-# gemini api key to env
-gemini_api_key = os.environ["GENERATIVE_AI_API_KEY"]
-genai.configure(api_key=gemini_api_key)
+# # gemini api key to env
+# gemini_api_key = os.environ["GENERATIVE_AI_API_KEY"]
+# genai.configure(api_key=gemini_api_key)
 
-# unsplash relted
-UNSPLASH_ACCESS_KEY = os.environ["UNSPLASH_ACCESS_KEY"]
-UNSPLASH_API_URL = os.environ["UNSPLASH_API_URL"]
+# # unsplash relted
+# UNSPLASH_ACCESS_KEY = os.environ["UNSPLASH_ACCESS_KEY"]
+# UNSPLASH_API_URL = os.environ["UNSPLASH_API_URL"]
 
 app = Flask(__name__)
 CORS(app)
