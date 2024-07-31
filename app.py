@@ -33,7 +33,7 @@ app.secret_key = os.environ["SECRET_KEY"]
 # Initialize SQLAlchemy and Bcrypt
 db = SQLAlchemy(app)
 
-Define User Model
+# Define User Model
 class users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
