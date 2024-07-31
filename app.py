@@ -6,24 +6,29 @@ from rake_nltk import Rake
 import random
 import requests
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # gemini api key to env
-os.environ["GENERATIVE_AI_API_KEY"] = "AIzaSyBBTYcBb6ZtsFPZEvNTQ7gVqTv7w5MyF_8"
-genai.configure(api_key=os.environ["GENERATIVE_AI_API_KEY"])
+gemini_api_key = os.environ["GENERATIVE_AI_API_KEY"]
+genai.configure(api_key=gemini_api_key)
 
 # unsplash relted
-UNSPLASH_ACCESS_KEY = "hnQZn2r_mww-jeUNtkRtIHk9m-Kf-YkghOKQCpWF6qk"
-UNSPLASH_API_URL = "https://api.unsplash.com/search/photos"
+UNSPLASH_ACCESS_KEY = os.environ["UNSPLASH_ACCESS_KEY"]
+UNSPLASH_API_URL = os.environ["UNSPLASH_API_URL"]
 
 app = Flask(__name__)
 CORS(app)
 
 # SQLAlchemy configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://ateeb_admin:ishaq321!@emailtemplatebyateeb.mysql.database.azure.com/ateeb_db'
+database_uri = os.environ["DATABASE_URI"]
+app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Secret Key for sessions and other purposes
-app.secret_key = os.environ.get('SECRET_KEY', '12345678')
+app.secret_key = os.environ["SECRET_KEY"]
 
 # Initialize SQLAlchemy and Bcrypt
 db = SQLAlchemy(app)
